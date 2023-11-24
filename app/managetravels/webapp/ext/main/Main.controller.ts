@@ -1,4 +1,9 @@
 import Controller from "sap/fe/core/PageController";
+import FilterBar from "sap/fe/macros/filterBar/FilterBarAPI";
+import GenericTile from "sap/m/GenericTile";
+import Event from "sap/ui/base/Event";
+import JSONModel from "sap/ui/model/json/JSONModel";
+import Context from "sap/ui/model/odata/v4/Context";
 
 /**
  * @namespace sap.fe.cap.managetravels.ext.main.Main.controller
@@ -19,9 +24,17 @@ export default class Main extends Controller {
      * (NOT before the first rendering! onInit() is used for that one!).
      * @memberOf sap.fe.cap.managetravels.ext.main.Main
      */
-    // public  onBeforeRendering(): void {
-    //
-    //  }
+    public onAfterRendering(): void {
+        const filterBar = this.byId("FilterBar") as FilterBar,
+        view = this.getView(),
+        mFBConditions = new JSONModel({
+            filtersTextInfo: filterBar.getActiveFiltersText()
+        });
+        if (view) {
+            view.setModel(mFBConditions, "fbConditions");  
+        };
+        filterBar.triggerSearch();
+    }
 
     /**
      * Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
@@ -39,4 +52,20 @@ export default class Main extends Controller {
     // public onExit(): void {
     //
     //  }
+
+    public onFiltersChanged(event: Event) : void {
+        const filterBar = event.getSource() as FilterBar;
+            const mFBConditions = filterBar.getModel("fbConditions");
+            if (mFBConditions instanceof JSONModel) {
+                mFBConditions.setProperty("/filtersTextInfo", filterBar.getActiveFiltersText());
+            }
+    }
+
+    public onPressed(event: Event) : void {
+        const oContext = (event.getSource() as GenericTile).getBindingContext();
+        if (oContext) {
+            const routing = this.getExtensionAPI().getRouting();
+            routing.navigate(oContext as Context);
+        }
+    } 
 }
