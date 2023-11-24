@@ -171,3 +171,37 @@ annotate service.Travel with @(
             },],
     }
 );
+
+annotate service.Booking with @(
+    UI.LineItem: [
+        {
+            $Type : 'UI.DataField',
+            Value : BookingID,
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : to_Carrier.AirlinePicURL,
+            Label : 'AirlinePicUrl',
+        },      
+        {
+            $Type : 'UI.DataField',
+            Value : to_Customer_CustomerID,
+        },{
+            $Type : 'UI.DataField',
+            Value : to_Carrier_AirlineID,
+        },{
+            $Type : 'UI.DataField',
+            Value : ConnectionID,
+        },{
+            $Type : 'UI.DataField',
+            Value : FlightDate,
+        },{
+            $Type : 'UI.DataField',
+            Value : FlightPrice,
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : BookingStatus_code,
+        }
+    ]
+);
