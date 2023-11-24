@@ -165,6 +165,15 @@
             "type": "XML",
             "async": true,
             "id": "appRootView"
+        },
+        "extends": {
+            "extensions": {
+                "sap.ui.controllerExtensions": {
+                    "sap.fe.templates.ObjectPage.ObjectPageController": {
+                        "controllerName": "sap.fe.cap.managetravels.ext.controller.ObjectPageExtension"
+                    }
+                }
+            }
         }
     }
 }
