@@ -6,7 +6,26 @@
 					<Title id="_IDGenTitle1" text="Filter Bar" level="H2" />
 				</f:heading>
 				<f:snappedContent>
-					<Text text="{fbConditions>/filtersTextInfo}" />
+					<Panel id='pn1' headerText='{i18n>HighestPrice}'>
+                        <VBox id='vb1'>
+                            <HeaderContainer scrollStep="200" showDividers="false" id="container1" content="{
+                                path:'/Travel', 
+                                parameters : {
+                                    $filter : 'TravelStatus_code eq \'O\' and IsActiveEntity eq false or SiblingEntity/IsActiveEntity eq null',
+                                    $orderby : 'TotalPrice desc'
+                                }
+                            }">
+                                <GenericTile id='gt1' header="Travel {TravelID}" subheader="{Description}" press=".onPressed" class="sapUiTinyMarginTop tileLayout">
+                                    <TileContent id='tc1' unit="{CurrencyCode_code}" footer="{to_Customer/LastName}">
+                                        <NumericContent id='nc1' withMargin="false" value="{TotalPrice}" valueColor="Good" scale="k" />
+                                    </TileContent>
+                                </GenericTile>
+                            </HeaderContainer>
+                        </VBox>
+                    </Panel>
+                    <Panel id='pn2' headerText="{i18n>FilterStatus}">
+                        <Text id='filterInfo1' text="{fbConditions>/filtersTextInfo}" class="sapUiTinyMargin" />
+                    </Panel>
 				</f:snappedContent>
 			</f:DynamicPageTitle>
 		</f:title>
