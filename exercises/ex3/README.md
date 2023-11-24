@@ -79,6 +79,7 @@ We now need to add some controller code for setting the filter status value and 
 (8) Add 
 ```ts 
 import JSONModel from 'sap/ui/model/json/JSONModel';
+import FilterBar from "sap/fe/macros/filterBar/FilterBarAPI";
 import Event from 'sap/ui/base/Event';
 ``` 
 to the import section.
