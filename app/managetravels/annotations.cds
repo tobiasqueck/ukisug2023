@@ -231,3 +231,37 @@ annotate service.Booking with @(
         ],
     }
 );
+annotate service.BookedFlights with @(
+    UI.Chart #BookedFlights : {
+        $Type : 'UI.ChartDefinitionType',
+        Title : 'Bookings per Airline',
+        ChartType : #Column,
+        Dimensions : [
+            to_Customer_CustomerID,
+            AirlineID,
+        ],
+        DimensionAttributes : [
+            {
+                $Type : 'UI.ChartDimensionAttributeType',
+                Dimension : to_Customer_CustomerID,
+                Role : #Category,
+            },
+            {
+                $Type : 'UI.ChartDimensionAttributeType',
+                Dimension : AirlineID,
+                Role : #Series,
+            },
+        ],
+        MeasureAttributes : [
+            {
+                $Type : 'UI.ChartMeasureAttributeType',
+                Measure : BookingUUID,
+                Role : #Axis1,
+            },
+        ],
+        Measures : [
+            BookingUUID,
+        ],
+    }
+);
+
