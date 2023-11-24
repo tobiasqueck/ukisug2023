@@ -1,4 +1,5 @@
 using TravelService as service from '../../srv/travel-service';
+using from '../../db/schema';
 annotate service.Travel with @(
     UI.SelectionFields : [
         to_Agency_AgencyID,
@@ -176,13 +177,18 @@ annotate service.Booking with @(
     UI.LineItem: [
         {
             $Type : 'UI.DataField',
-            Value : BookingID,
+            Value : to_Carrier.AirlinePicURL,
+            Label : 'AirlinePicUrl',
         },
         {
             $Type : 'UI.DataField',
-            Value : to_Carrier.AirlinePicURL,
-            Label : 'AirlinePicUrl',
-        },      
+            Value : BookingID,
+        },
+        {
+            $Type : 'UI.DataFieldForAnnotation',
+            Target : '@UI.Chart#BookedFlights',
+            Label : '{i18n>VipStatus}',
+        },
         {
             $Type : 'UI.DataField',
             Value : to_Customer_CustomerID,
@@ -204,4 +210,24 @@ annotate service.Booking with @(
             Value : BookingStatus_code,
         }
     ]
+);
+annotate service.Booking with @(
+    UI.DataPoint #BookedFlights : {
+        Value : BookedFlights,
+        TargetValue : to_Carrier.VIPCustomerBookings,
+        Criticality : EligibleForPrime,
+    },
+    UI.Chart #BookedFlights : {
+        ChartType : #Donut,
+        Measures : [
+            BookedFlights,
+        ],
+        MeasureAttributes : [
+            {
+                DataPoint : '@UI.DataPoint#BookedFlights',
+                Role : #Axis1,
+                Measure : BookedFlights,
+            },
+        ],
+    }
 );
