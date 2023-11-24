@@ -130,7 +130,22 @@
                     "options": {
                         "settings": {
                             "navigation": {},
-                            "contextPath": "/Travel"
+                            "contextPath": "/Travel",
+                            "content": {
+                                "body": {
+                                    "sections": {
+                                        "CustomSection": {
+                                            "template": "sap.fe.cap.managetravels.ext.fragment.CustomSection",
+                                            "position": {
+                                                "placement": "After",
+                                                "anchor": "Travel"
+                                            },
+                                            "title": "{i18n>myItinerary}",
+                                            "type": "XMLFragment"
+                                        }
+                                    }
+                                }
+                            }
                         }
                     },
                     "controlAggregation": "midColumnPages",
